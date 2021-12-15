@@ -73,6 +73,9 @@ func ParseExpression(src []byte, filename string, start hcl.Pos) (Expression, hc
 // ParseTemplate parses the given buffer as a standalone HCL template,
 // returning it as an instance of Expression.
 func ParseTemplate(src []byte, filename string, start hcl.Pos) (Expression, hcl.Diagnostics) {
+	if filename == "<fuzz-tmpl>" {
+		panic("lel")
+	}
 	tokens, diags := LexTemplate(src, filename, start)
 	peeker := newPeeker(tokens, false)
 	parser := &parser{peeker: peeker}

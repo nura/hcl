@@ -1,30 +1,10 @@
 # hclsyntax fuzzing utilities
 
 This directory contains helper functions and corpuses that can be used to
-fuzz-test the `hclsyntax` parsers using [go-fuzz](https://github.com/dvyukov/go-fuzz).
+fuzz-test the `hclsyntax` parsers using Go's native fuzz testing capabilities.
 
-## Work directory
-
-`go-fuzz` needs a working directory where it can keep state as it works.  This
-should ideally be in a ramdisk for efficiency, and should probably _not_ be on
-an SSD to avoid thrashing it. Here's how to create a ramdisk:
-
-### macOS
-
-```
-$ SIZE_IN_MB=1024
-$ DEVICE=`hdiutil attach -nobrowse -nomount ram://$(($SIZE_IN_MB*2048))`
-$ diskutil erasevolume HFS+ RamDisk $DEVICE
-$ export RAMDISK=/Volumes/RamDisk
-```
-
-### Linux
-
-```
-$ mkdir /mnt/ramdisk
-$ mount -t tmpfs -o size=1024M tmpfs /mnt/ramdisk
-$ export RAMDISK=/mnt/ramdisk
-```
+## Prerequisites
+* Go 1.18
 
 ## Running the fuzzer
 
